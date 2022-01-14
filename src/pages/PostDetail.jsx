@@ -39,7 +39,10 @@ export function PostDetail({ match }) {
             </p>
             <p className="font-medium font-primary text-base text-left md:text-base">
               User :{" "}
-              <Link to={`/user/${post?.userId}`} className="p-1 bg-red-300">
+              <Link
+                to={`/user/${post?.userId}`}
+                className="p-1 bg-red-300 hover:bg-red-400"
+              >
                 {users?.filter((user) => user.id === post?.userId)[0]?.name}
               </Link>
             </p>
