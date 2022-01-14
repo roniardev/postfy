@@ -1,12 +1,16 @@
 import { useState, useEffect, useRef, Fragment } from "react";
 import { useFetchPost, useFetchUser } from "hooks";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUsers, addUsers } from "stores/reducer/user-reducer";
 
 export function PostList() {
   const [limit, setLimit] = useState(6);
   const [page, setPage] = useState(0);
   const { data: user } = useFetchUser();
   console.log("🚀 ~ file: PostList.jsx ~ line 8 ~ PostList ~ user", user);
+  const users = useSelector(selectUsers);
+  const dispatch = useDispatch();
 
   const { data: post, error, isLoading } = useFetchPost({ page, limit });
 
@@ -14,9 +18,11 @@ export function PostList() {
     setLimit(limit + 94);
   };
 
-  if (isLoading) return "Loading...";
-
-  if (error) return "An error has occurred: " + error.message;
+  useEffect(() => {
+    if (user) {
+      dispatch(addUsers(user));
+    }
+  }, [user]);
 
   return (
     <div className="flex flex-col py-8 space-y-3 lg:px-8">
@@ -25,7 +31,7 @@ export function PostList() {
       </p>
 
       <div className="space-y-2">
-        {post.map((item, idx) => (
+        {post?.map((item, idx) => (
           <Link
             className="bg-white duration-200 flex flex-col p-3 rounded-lg shadow-lg space-y-4 transition-colors hover:bg-gray-200 cursor-pointer"
             key={item.id}
@@ -42,13 +48,13 @@ export function PostList() {
               <p className="font-bold font-primary text-gray-800 text-xs md:text-sm">
                 User :{" "}
                 <span className="p-1 bg-red-300">
-                  {user[item?.userId - 1].name}
+                  {users[item?.userId - 1].name}
                 </span>
               </p>
               <p className="font-bold font-primary text-gray-800 text-xs md:text-sm">
                 Company:{" "}
                 <span className="p-1 bg-blue-300">
-                  {user[item.userId - 1].company.name}
+                  {users[item.userId - 1].company.name}
                 </span>
               </p>
             </div>
