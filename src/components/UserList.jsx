@@ -16,7 +16,7 @@ export function UserList() {
   }, [user]);
 
   return (
-    <div className="flex flex-col py-8 space-y-3 lg:px-8">
+    <div className="flex flex-col space-y-3 lg:px-8">
       <p className="font-bold font-primary text-base text-left md:text-lg">
         User List
       </p>
