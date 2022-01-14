@@ -1,12 +1,13 @@
+import { Page, PageContent } from "components/layout/page";
 function Home() {
   return (
-    <div>
-      <h1>Home</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum,
-        quibusdam.
-      </p>
-    </div>
+    <Page>
+      <PageContent>
+        <div className="flex flex-col items-center px-3 py-8 space-y-2 lg:px-8">
+          <p className="text-xl">Halo</p>
+        </div>
+      </PageContent>
+    </Page>
   );
 }
 
