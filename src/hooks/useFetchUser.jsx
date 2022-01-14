@@ -11,6 +11,12 @@ export const useFetchUser = () => {
       ),
     {
       staleTime: 3000000,
+
+      onSuccess: (data) => {
+        data.forEach((data) => {
+          queryClient.setQueryData(["userData", data.id], data);
+        });
+      },
     }
   );
 };

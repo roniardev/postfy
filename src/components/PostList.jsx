@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, Fragment } from "react";
 import { useFetchPost, useFetchUser } from "hooks";
+import { Link } from "react-router-dom";
 
 export function PostList() {
   const [limit, setLimit] = useState(6);
@@ -25,11 +26,10 @@ export function PostList() {
 
       <div className="space-y-2">
         {post.map((item, idx) => (
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
             className="bg-white duration-200 flex flex-col p-3 rounded-lg shadow-lg space-y-4 transition-colors hover:bg-gray-200 cursor-pointer"
             key={item.id}
+            to={`/post/${item.id}`}
           >
             <div className="flex flex-col items-center bg-emerald-500">
               <div className="flex flex-row w-max  px-2 py-1 rounded-md">
@@ -42,7 +42,7 @@ export function PostList() {
               <p className="font-bold font-primary text-gray-800 text-xs md:text-sm">
                 User :{" "}
                 <span className="p-1 bg-red-300">
-                  {user[item.userId - 1].name}
+                  {user[item?.userId - 1].name}
                 </span>
               </p>
               <p className="font-bold font-primary text-gray-800 text-xs md:text-sm">
@@ -53,7 +53,7 @@ export function PostList() {
               </p>
             </div>
             <p className="text-gray-600 text-xs md:text-sm">{item.body}</p>
-          </a>
+          </Link>
         ))}
         <button className="btn btn-block btn-info" onClick={handleLoadMore}>
           Load All News
