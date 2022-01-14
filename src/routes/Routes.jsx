@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Home } from "pages";
+import { Home, PostDetail } from "pages";
 import { LayoutRoot } from "components/layout";
 
 export default function Routes() {
@@ -8,6 +8,7 @@ export default function Routes() {
       <LayoutRoot>
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route path="/post/:id" component={PostDetail} />
         </Switch>
       </LayoutRoot>
     </Router>
