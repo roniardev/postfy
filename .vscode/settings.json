@@ -1,0 +1,11 @@
+{
+  "conventionalCommits.scopes": [
+    "pages",
+    "app",
+    "routes",
+    "components",
+    "helpers",
+    "hooks",
+    "stores"
+  ]
+}
