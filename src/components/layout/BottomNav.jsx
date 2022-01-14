@@ -18,7 +18,7 @@ const navItems = [
   },
   {
     name: "User",
-    href: "/user",
+    href: "/users",
     icon: UserCircleIcon,
   },
 ];
@@ -61,9 +61,9 @@ export function BottomNav() {
                   to={item.href}
                   onClick={() => console.log(location.pathname)}
                 >
-                  <a className={clsx(...navigationClasses(isActive))}>
+                  <span className={clsx(...navigationClasses(isActive))}>
                     {renderItem(item)}
-                  </a>
+                  </span>
                 </Link>
               </li>
             );

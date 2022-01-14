@@ -3,11 +3,13 @@ import { useFetchPostById, useFetchUser, useFetchComments } from "hooks";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUsers, addUsers } from "stores/reducer/user-reducer";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export function PostDetail({ match }) {
   const {
     data: post,
     isLoading,
+    isFetching,
     error,
   } = useFetchPostById({ id: match.params.id });
   const { data: user } = useFetchUser();
@@ -24,14 +26,22 @@ export function PostDetail({ match }) {
       <PageContent>
         <div className="flex flex-col py-8 space-y-6 lg:px-8">
           <div className="flex flex-col space-y-3">
+            {isLoading ? (
+              <div className="flex justify-center items-center">
+                <div
+                  className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
+                  role="status"
+                ></div>
+              </div>
+            ) : null}
             <p className="font-bold font-primary text-base text-left md:text-lg">
               {post?.title}
             </p>
             <p className="font-medium font-primary text-base text-left md:text-base">
               User :{" "}
-              <span className="p-1 bg-red-300">
+              <Link to={`/user/${post?.userId}`} className="p-1 bg-red-300">
                 {users?.filter((user) => user.id === post?.userId)[0]?.name}
-              </span>
+              </Link>
             </p>
             <p className="font-medium font-primary text-base text-left md:text-base">
               Company :{" "}
@@ -57,9 +67,7 @@ export function PostDetail({ match }) {
               </ul>
             </div>
           </div>
-
-          <div className="space-y-2"></div>
-        </div>{" "}
+        </div>
       </PageContent>
     </Page>
   );

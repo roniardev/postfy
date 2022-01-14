@@ -8,11 +8,15 @@ export function PostList() {
   const [limit, setLimit] = useState(6);
   const [page, setPage] = useState(0);
   const { data: user } = useFetchUser();
-  console.log("🚀 ~ file: PostList.jsx ~ line 8 ~ PostList ~ user", user);
   const users = useSelector(selectUsers);
   const dispatch = useDispatch();
 
-  const { data: post, error, isLoading } = useFetchPost({ page, limit });
+  const {
+    data: post,
+    error,
+    isLoading,
+    isFetching,
+  } = useFetchPost({ page, limit });
 
   const handleLoadMore = () => {
     setLimit(limit + 94);
@@ -29,7 +33,14 @@ export function PostList() {
       <p className="font-bold font-primary text-base text-left md:text-lg">
         Latest Post
       </p>
-
+      {isLoading || isFetching ? (
+        <div className="flex justify-center items-center">
+          <div
+            className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
+            role="status"
+          ></div>
+        </div>
+      ) : null}
       <div className="space-y-2">
         {post?.map((item, idx) => (
           <Link
@@ -38,7 +49,7 @@ export function PostList() {
             to={`/post/${item.id}`}
           >
             <div className="flex flex-col items-center bg-emerald-500">
-              <div className="flex flex-row w-max  px-2 py-1 rounded-md">
+              <div className="flex flex-row   px-2 py-1 rounded-md">
                 <p className="font-bold font-primary text-gray-800 text-xs md:text-sm  text-center">
                   {item.title}
                 </p>
